@@ -38,6 +38,11 @@ EvolutionGame.PlayerManager.prototype = {
 			return false;
 		}
 
+		if (player1.isBox || player2.isBox) {
+			console.log('Impossível fundir players que ainda não foram descobertos.');
+			return false;
+		}
+
 
 		console.log(player1.name + ' fundiu com ' + player2.name);
 

@@ -2,31 +2,27 @@
 
 var EvolutionGame = EvolutionGame || {};
 
-EvolutionGame.Player = function(game, x, y, key, level, evoluido) {
+EvolutionGame.Player = function(game, x, y, key, level, isEvolution) {
 	Phaser.Sprite.call(this, game, x, y, key);
 
 	this.game = game;
 
-	this.name = 'player' + getRandomInt(1, 50);
+	this.name = 'player' + Utils.getRandomInt(1, 50);
 	this.isBox = true;
 	this.level = level;
 
-	// console.log(this.position);
-
 	this.lastPosition = this.position;
 
+	this.isMoving = false;
 	this.lastX = this.position.x;
 	this.lastY = this.position.y;
 
 	this.anchor.setTo(0.5);
 	this.scale.setTo(0.1);
 
-
-	// console.log(this);
-
 	this.inputEnabled = true;
 
-	if (evoluido) {
+	if (isEvolution) {
 		this.openBox(true);
 	}
 
@@ -39,31 +35,20 @@ EvolutionGame.Player = function(game, x, y, key, level, evoluido) {
     this.events.onDragUpdate.add(this.onMoving, this);
 
     var animFunc = function() {
-    	// console.log(this);
-    	var tweenAnim = this.game.add.tween(this);
-    	// console.log('atual: ' + this.height);
-		tweenAnim.to({y: this.position.y - 10}, 250);
+    	if (!this.isMoving) {
+	    	var tweenAnim = this.game.add.tween(this);
+			tweenAnim.to({y: this.position.y - 10}, 250);
 
-		tweenAnim.onComplete.add(function(){
-
-    		// console.log('novo: ' + this.height);
-
-	    	var tweenAnim2 = this.game.add.tween(this);
-
-			var x = tweenAnim2.to({y: this.position.y + 10}, 250, 'Linear', true);
-
-
-    		// console.log('voltou para: ' + this.height * 1.30);
-
-
-		}, this);
-		tweenAnim.start();
+			tweenAnim.onComplete.add(function(){
+		    	var tweenAnim2 = this.game.add.tween(this);
+				var x = tweenAnim2.to({y: this.position.y + 10}, 250, 'Linear', true);
+			}, this);
+			tweenAnim.start();
+		}
     }
 
-
+    //Cria timer que executa animação a cada 3 segundos
     this.animTimer = this.game.time.events.loop(Phaser.Timer.SECOND * 3, animFunc, this);
-
-    // console.log(this.anim);
 
 };
 
@@ -75,13 +60,13 @@ EvolutionGame.Player.prototype.onClick = function(sprite, pointer) {
 }
 
 
-EvolutionGame.Player.prototype.openBox = function(evoluido) {
+EvolutionGame.Player.prototype.openBox = function(isEvolution) {
 	if (this.isBox) {
 		console.log('Abriu ' + this.name);
 		this.isBox = false;
 		this.input.enableDrag();
 
-		if (!evoluido) {
+		if (!isEvolution) {
 			this.loadTexture('pet', 0);
 		}
 		this.scale.setTo(0.5);
@@ -98,6 +83,9 @@ EvolutionGame.Player.prototype.onMoveStart = function(sprite, pointer) {
 EvolutionGame.Player.prototype.onMoving = function(sprite, pointer) {
 	 // console.log('onMoving...');
 	// sprite.bringToTop();
+	if (sprite.position.x != this.lastX || sprite.position.y != this.lastY) {
+		this.isMoving = true;
+	}
 };
 
 EvolutionGame.Player.prototype.onMoveEnd = function(sprite, pointer) {
@@ -108,6 +96,7 @@ EvolutionGame.Player.prototype.onMoveEnd = function(sprite, pointer) {
 	}
 	this.lastX = sprite.position.x;
 	this.lastY = sprite.position.y;
+	this.isMoving = false;
 
 
 	var checkOverlap = function(spriteA, spriteB) {
@@ -120,8 +109,6 @@ EvolutionGame.Player.prototype.onMoveEnd = function(sprite, pointer) {
 		if (element != this) {
 			if (checkOverlap(this, element)) {
 				EvolutionGame.GameState.playerManager.mergePlayers(this, element);
-				// element.kill();
-				// this.kill();
 				return;
 			}
 		}
@@ -134,17 +121,10 @@ EvolutionGame.Player.prototype.update = function() {
 };
 
 EvolutionGame.Player.prototype.destroy = function() {
-
 	this.game.time.events.remove(this.animTimer);
 
 	//chama super
 	Phaser.Sprite.prototype.destroy.call(this);
-}
-
-
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
