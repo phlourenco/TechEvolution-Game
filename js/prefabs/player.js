@@ -39,20 +39,21 @@ EvolutionGame.Player = function(game, x, y, key, level, evoluido) {
     this.events.onDragUpdate.add(this.onMoving, this);
 
     var animFunc = function() {
+    	// console.log(this);
     	var tweenAnim = this.game.add.tween(this);
-    	console.log('atual: ' + this.height);
-		tweenAnim.to({height: this.height * 0.75}, 500);
+    	// console.log('atual: ' + this.height);
+		tweenAnim.to({y: this.position.y - 10}, 250);
 
 		tweenAnim.onComplete.add(function(){
 
-    		console.log('novo: ' + this.height);
+    		// console.log('novo: ' + this.height);
 
 	    	var tweenAnim2 = this.game.add.tween(this);
 
-			var x = tweenAnim2.to({height: this.height * 1.30}, 500, 'Linear', true);
+			var x = tweenAnim2.to({y: this.position.y + 10}, 250, 'Linear', true);
 
 
-    		console.log('voltou para: ' + this.height * 1.30);
+    		// console.log('voltou para: ' + this.height * 1.30);
 
 
 		}, this);
@@ -60,7 +61,9 @@ EvolutionGame.Player = function(game, x, y, key, level, evoluido) {
     }
 
 
-    this.anim = this.game.time.events.loop(Phaser.Timer.SECOND * 3, animFunc, this);
+    this.animTimer = this.game.time.events.loop(Phaser.Timer.SECOND * 3, animFunc, this);
+
+    // console.log(this.anim);
 
 };
 
@@ -126,10 +129,18 @@ EvolutionGame.Player.prototype.onMoveEnd = function(sprite, pointer) {
 
 };
 
-
 EvolutionGame.Player.prototype.update = function() {
 
 };
+
+EvolutionGame.Player.prototype.destroy = function() {
+
+	this.game.time.events.remove(this.animTimer);
+
+	//chama super
+	Phaser.Sprite.prototype.destroy.call(this);
+}
+
 
 
 function getRandomInt(min, max) {

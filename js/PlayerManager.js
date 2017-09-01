@@ -10,7 +10,11 @@ EvolutionGame.PlayerManager = function(game) {
 EvolutionGame.PlayerManager.prototype = {
 
 	createPlayer: function(x, y, sprite, level, isEvolution) {
-		var player = new EvolutionGame.Player(this.game, x, -(sprite.height*2), sprite, level, isEvolution);
+		// console.log('game: ');
+		// console.log(this.game);
+
+		var newY = (isEvolution ? y : -(sprite.height*2));
+		var player = new EvolutionGame.Player(this.game, x, newY, sprite, level, isEvolution);
 		this.players.add(player);
 
 
@@ -34,6 +38,7 @@ EvolutionGame.PlayerManager.prototype = {
 			return false;
 		}
 
+
 		console.log(player1.name + ' fundiu com ' + player2.name);
 
 
@@ -41,6 +46,9 @@ EvolutionGame.PlayerManager.prototype = {
 		// this.players.add(player);
 
 		this.createPlayer(player1.position.x, player1.position.y, 'toy', 2, true);
+
+		// player1.anim.pause();
+		// player2.anim.pause();
 
 		player1.destroy();
 		player2.destroy();
