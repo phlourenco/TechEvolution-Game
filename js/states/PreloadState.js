@@ -5,7 +5,6 @@ var EvolutionGame = EvolutionGame || {};
 EvolutionGame.PreloadState = {
 
 	preload: function() {
-
 		this.logo = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
 		this.logo.anchor.setTo(0.5);
 
@@ -24,7 +23,6 @@ EvolutionGame.PreloadState = {
 		}, this);
 
 		LevelManager.init(levelsJSON.levels);
-
 	},
 
 	create: function() {

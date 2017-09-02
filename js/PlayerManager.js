@@ -43,6 +43,11 @@ EvolutionGame.PlayerManager.prototype = {
 			return false;
 		}
 
+		if (player1.level == LevelManager.getHigherLevel()) {
+			console.log('Impossível fundir pois não existe level maior.');
+			return false;
+		}
+
 		console.log(player1.name + ' fundiu com ' + player2.name);
 
 		var newLevel = player1.level + 1;

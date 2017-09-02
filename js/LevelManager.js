@@ -26,4 +26,14 @@ class LevelManager {
 		return data;
 	}
 
+	static getHigherLevel() {
+		var higher = 0;
+		for(var level of this.levelList) {
+			if (level.id > higher) {
+				higher = level.id;
+			}
+		}
+		return higher;
+	}
+
 }
