@@ -1,0 +1,26 @@
+{
+	"levels": [
+		{
+			"id": 1,
+			"name": "Level 1",
+			"coins_per_second": 0.5,
+			"price": 640,
+			"world": 1,
+			"image": {
+				"file": "pet.png",
+				"scale": 0.5
+			}
+		},
+		{
+			"id": 2,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "toy.png",
+				"scale": 1
+			}
+		}
+	]
+}

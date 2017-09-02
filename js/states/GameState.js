@@ -33,10 +33,7 @@ EvolutionGame.GameState = {
 			dropX = Utils.getRandomInt(minX, maxX);
 			dropY = Utils.getRandomInt(minY, maxY);
 
-			// console.log(dropX);
-			// console.log(dropY);
-
-			this.playerManager.createPlayer(dropX, dropY, 'box', 1, false);
+			this.playerManager.createPlayer(dropX, dropY, 1, false);
 
 		}
 	},

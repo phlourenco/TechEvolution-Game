@@ -10,6 +10,7 @@ EvolutionGame.Player = function(game, x, y, key, level, isEvolution) {
 	this.name = 'player' + Utils.getRandomInt(1, 50);
 	this.isBox = true;
 	this.level = level;
+	this.levelData = LevelManager.getDataByLevelId(level);
 
 	this.lastPosition = this.position;
 
@@ -18,7 +19,7 @@ EvolutionGame.Player = function(game, x, y, key, level, isEvolution) {
 	this.lastY = this.position.y;
 
 	this.anchor.setTo(0.5);
-	this.scale.setTo(0.1);
+	// this.scale.setTo(0.1);
 
 	this.inputEnabled = true;
 
@@ -35,16 +36,17 @@ EvolutionGame.Player = function(game, x, y, key, level, isEvolution) {
     this.events.onDragUpdate.add(this.onMoving, this);
 
     var animFunc = function() {
-    	if (!this.isMoving) {
-	    	var tweenAnim = this.game.add.tween(this);
-			tweenAnim.to({y: this.position.y - 10}, 250);
+    	if (this.isMoving)
+    		return;
 
-			tweenAnim.onComplete.add(function(){
-		    	var tweenAnim2 = this.game.add.tween(this);
-				var x = tweenAnim2.to({y: this.position.y + 10}, 250, 'Linear', true);
-			}, this);
-			tweenAnim.start();
-		}
+	    var tweenAnim = this.game.add.tween(this);
+		tweenAnim.to({y: this.position.y - 10}, 250);
+
+		tweenAnim.onComplete.add(function(){
+			var tweenAnim2 = this.game.add.tween(this);
+			var x = tweenAnim2.to({y: this.position.y + 10}, 250, 'Linear', true);
+		}, this);
+		tweenAnim.start();
     }
 
     //Cria timer que executa animação a cada 3 segundos
@@ -59,17 +61,18 @@ EvolutionGame.Player.prototype.onClick = function(sprite, pointer) {
 	this.openBox(false);
 }
 
-
 EvolutionGame.Player.prototype.openBox = function(isEvolution) {
 	if (this.isBox) {
 		console.log('Abriu ' + this.name);
 		this.isBox = false;
 		this.input.enableDrag();
 
+		var newSprite = LevelManager.getSpriteByLevelId(this.level);
+
 		if (!isEvolution) {
-			this.loadTexture('pet', 0);
+			this.loadTexture(newSprite, 0);
 		}
-		this.scale.setTo(0.5);
+		this.scale.setTo(this.levelData.image.scale);
 	}
 }
 

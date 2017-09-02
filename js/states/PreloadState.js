@@ -15,15 +15,16 @@ EvolutionGame.PreloadState = {
 		this.load.setPreloadSprite(this.preloadBar);
 
 		this.load.image('backyard', 'assets/images/backyard.png');
-		this.load.image('apple', 'assets/images/apple.png');
-		this.load.image('candy', 'assets/images/candy.png');
-		this.load.image('rotate', 'assets/images/rotate.png');
-		this.load.image('toy', 'assets/images/rubber_duck.png');
-		this.load.image('arrow', 'assets/images/arrow.png');
 		this.load.image('box', 'assets/images/box.png');
-		this.load.spritesheet('pet', 'assets/images/pet.png', 97, 83, 5, 1, 1);
 
-		this.load.spritesheet('explosion', 'assets/images/puff_spritesheet.png', 128, 128, 10);
+		//Loop no arquivo levels.json para carregar a imagem de todos os levels
+		var levelsJSON = game.cache.getJSON('levels');
+		levelsJSON.levels.forEach(function(level) {
+			this.load.image(Utils.removeExtension(level.image.file), 'assets/images/'+level.image.file);
+		}, this);
+
+		LevelManager.init(levelsJSON.levels);
+
 	},
 
 	create: function() {
