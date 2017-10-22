@@ -9,7 +9,7 @@ EvolutionGame.HomeState = {
 	},
 
 	create: function() {
-		var background = this.game.add.sprite(0, 0, 'backyard');
+		var background = this.game.add.sprite(0, 0, 'space');
 		background.inputEnabled = true;
 
 		background.events.onInputDown.add(function() {

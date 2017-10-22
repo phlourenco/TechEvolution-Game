@@ -7,8 +7,8 @@
 			"price": 640,
 			"world": 1,
 			"image": {
-				"file": "pet.png",
-				"scale": 0.5
+				"file": "1.png",
+				"scale": 0.2
 			}
 		},
 		{
@@ -18,8 +18,85 @@
 			"price": 1100,
 			"world": 1,
 			"image": {
-				"file": "toy.png",
-				"scale": 1
+				"file": "2.png",
+				"scale": 0.2
+			}
+		},
+		{
+			"id": 3,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "3.png",
+				"scale": 0.2
+			}
+		},
+		{
+			"id": 4,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "4.png",
+				"scale": 0.2
+			}
+		},
+		{
+			"id": 5,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "5.png",
+				"scale": 0.2
+			}
+		},
+		{
+			"id": 6,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "6.png",
+				"scale": 0.2
+			}
+		},
+		{
+			"id": 7,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "7.png",
+				"scale": 0.2
+			}
+		},
+		{
+			"id": 8,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "8.png",
+				"scale": 0.2
+			}
+		},
+		{
+			"id": 9,
+			"name": "Level 2",
+			"coins_per_second": 1.5,
+			"price": 1100,
+			"world": 1,
+			"image": {
+				"file": "9.png",
+				"scale": 0.2
 			}
 		}
 	]
